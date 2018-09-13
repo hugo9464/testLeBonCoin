@@ -18,7 +18,7 @@ public class TestConnexion {
 
         driver = new FirefoxDriver();
         driver.navigate().to("http://leboncoin.fr");
-        driver.manage().timeouts().implicitlyWait(500, TimeUnit.MILLISECONDS);
+        driver.manage().timeouts().implicitlyWait(5000, TimeUnit.MILLISECONDS);
     }
 
     @After
@@ -39,7 +39,7 @@ public class TestConnexion {
         loginPopin.enterPassword(password);
         loginPopin.submit();
 
-        assertTrue(homePage.checkIsLoggedIn());
+        assertTrue("L'utilisateur n'est pas connecté alors qu'il devrait l'être.",homePage.checkIsLoggedIn());
     }
 
     @Test
@@ -55,7 +55,9 @@ public class TestConnexion {
         loginPopin.enterPassword(password);
         loginPopin.submit();
 
-        assertTrue(loginPopin.connexionErrorPresent());
+        assertTrue("Le message d'erreur de connexion n'est pas présent alors qu'il devrait l'être.",loginPopin.connexionErrorPresent());
+        assertFalse("L'utilisateur est connecté alors qu'il ne devrait pas.",homePage.checkIsLoggedIn());
+
     }
 
     @Test
@@ -71,7 +73,8 @@ public class TestConnexion {
         loginPopin.enterPassword(password);
         loginPopin.submit();
 
-        assertTrue(loginPopin.connexionErrorPresent());
+        assertTrue("Le message d'erreur de connexion n'est pas présent alors qu'il devrait l'être.",loginPopin.connexionErrorPresent());
+        assertFalse("L'utilisateur est connecté alors qu'il ne devrait pas.",homePage.checkIsLoggedIn());
     }
 
     @Test
@@ -85,7 +88,8 @@ public class TestConnexion {
         loginPopin.enterPassword(password);
         loginPopin.submit();
 
-        assertTrue(loginPopin.missingEmailErrorPresent());
+        assertTrue("Le message d'erreur d'email vide n'est pas présent alors qu'il devrait l'être",loginPopin.missingEmailErrorPresent());
+        assertFalse("L'utilisateur est connecté alors qu'il ne devrait pas",homePage.checkIsLoggedIn());
     }
 
     @Test
@@ -99,7 +103,8 @@ public class TestConnexion {
         loginPopin.enterEmail(email);
         loginPopin.submit();
 
-        assertTrue(loginPopin.missingPasswordErrorPresent());
+        assertTrue("Le message d'erreur de mot de passe vide n'est pas présent alors qu'il devrait l'être",loginPopin.missingPasswordErrorPresent());
+        assertFalse("L'utilisateur est connecté alors qu'il ne devrait pas.",homePage.checkIsLoggedIn());
     }
 
 }

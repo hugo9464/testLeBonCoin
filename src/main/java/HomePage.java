@@ -1,3 +1,4 @@
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -35,6 +36,13 @@ public class HomePage {
      * @return true si connecté, sinon false
      */
     public boolean checkIsLoggedIn() {
-        return loggedInButton != null;
+
+        try {
+            loggedInButton.isDisplayed();
+            return true;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+
     }
 }

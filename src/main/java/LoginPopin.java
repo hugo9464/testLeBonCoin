@@ -1,3 +1,4 @@
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -61,7 +62,14 @@ public class LoginPopin {
      * @return true si le message est présent, sinon false
      */
     public boolean connexionErrorPresent() {
-        return connexionError.isDisplayed();
+
+        try {
+            connexionError.isDisplayed();
+            return true;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+
     }
 
     /**
@@ -69,7 +77,14 @@ public class LoginPopin {
      * @return true si le message est présent, sinon false
      */
     public boolean missingEmailErrorPresent() {
-        return missingEmailError.isDisplayed();
+
+        try {
+            missingEmailError.isDisplayed();
+            return true;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+
     }
 
     /**
@@ -77,6 +92,13 @@ public class LoginPopin {
      * @return true si le message est présent, sinon false
      */
     public boolean missingPasswordErrorPresent() {
-        return missingPasswordError.isDisplayed();
+
+        try {
+            missingPasswordError.isDisplayed();
+            return true;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+
     }
 }
