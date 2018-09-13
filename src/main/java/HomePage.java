@@ -10,7 +10,7 @@ public class HomePage {
 
     private WebDriver driver;
 
-    @FindBy(className = "s_gWv")
+    @FindBy(xpath = "//*[contains(text(), 'Se connecter')]")
     private WebElement loginButton;
 
     @FindBy(css = "[data-qa-id=profilarea-login]")

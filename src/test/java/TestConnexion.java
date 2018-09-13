@@ -4,6 +4,8 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.util.concurrent.TimeUnit;
+
 import static org.junit.Assert.*;
 
 public class TestConnexion {
@@ -16,6 +18,7 @@ public class TestConnexion {
 
         driver = new FirefoxDriver();
         driver.navigate().to("http://leboncoin.fr");
+        driver.manage().timeouts().implicitlyWait(500, TimeUnit.MILLISECONDS);
     }
 
     @After
@@ -52,7 +55,7 @@ public class TestConnexion {
         loginPopin.enterPassword(password);
         loginPopin.submit();
 
-        assertTrue(loginPopin.errorMessagePresent());
+        assertTrue(loginPopin.connexionErrorPresent());
     }
 
     @Test
@@ -68,6 +71,35 @@ public class TestConnexion {
         loginPopin.enterPassword(password);
         loginPopin.submit();
 
-        assertTrue(loginPopin.errorMessagePresent());
+        assertTrue(loginPopin.connexionErrorPresent());
     }
+
+    @Test
+    public void should_display_error_with_no_email () {
+
+        String password = "azertyuiop2";
+
+        HomePage homePage = new HomePage(driver);
+
+        LoginPopin loginPopin = homePage.displayLoginPopin();
+        loginPopin.enterPassword(password);
+        loginPopin.submit();
+
+        assertTrue(loginPopin.missingEmailErrorPresent());
+    }
+
+    @Test
+    public void should_display_error_with_no_password () {
+
+        String email = "test_hugo_faye@mailinator.com";
+
+        HomePage homePage = new HomePage(driver);
+
+        LoginPopin loginPopin = homePage.displayLoginPopin();
+        loginPopin.enterEmail(email);
+        loginPopin.submit();
+
+        assertTrue(loginPopin.missingPasswordErrorPresent());
+    }
+
 }

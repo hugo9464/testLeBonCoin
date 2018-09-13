@@ -19,8 +19,14 @@ public class LoginPopin {
     @FindBy(css = "[data-qa-id=authmodal-login]")
     private WebElement loginButton;
 
-    @FindBy(className = "_1zeAx")
-    private WebElement errorMessage;
+    @FindBy(xpath = "//*[contains(text(), 'Votre identifiant ou mot de passe est incorrect.')]")
+    private WebElement connexionError;
+
+    @FindBy(xpath = "//*[contains(text(), 'Veuillez indiquer une adresse email.')]")
+    private WebElement missingEmailError;
+
+    @FindBy(xpath = "//*[contains(text(), 'Saisissez un mot de passe.')]")
+    private WebElement missingPasswordError;
 
     public LoginPopin(WebDriver driver) {
         this.driver = driver;
@@ -54,7 +60,23 @@ public class LoginPopin {
      * Permet de vérifier la présence du message d'erreur de connexion
      * @return true si le message est présent, sinon false
      */
-    public boolean errorMessagePresent() {
-        return errorMessage.isDisplayed();
+    public boolean connexionErrorPresent() {
+        return connexionError.isDisplayed();
+    }
+
+    /**
+     * Permet de vérifier la présence du message d'erreur d'email non renseigné
+     * @return true si le message est présent, sinon false
+     */
+    public boolean missingEmailErrorPresent() {
+        return missingEmailError.isDisplayed();
+    }
+
+    /**
+     * Permet de vérifier la présence du message d'erreur de mont de passe non renseigné
+     * @return true si le message est présent, sinon false
+     */
+    public boolean missingPasswordErrorPresent() {
+        return missingPasswordError.isDisplayed();
     }
 }
